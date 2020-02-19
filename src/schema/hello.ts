@@ -1,4 +1,5 @@
 import { objectType } from 'nexus'
+import { greet } from '@utils'
 
 export const Query = objectType({
   name: 'Query',
@@ -7,7 +8,8 @@ export const Query = objectType({
       type: 'String',
       nullable: false,
       resolve: (root, args, ctx) => {
-        return 'Hello World'
+        // return 'Hello World'
+        return greet()
       },
     })
   },
