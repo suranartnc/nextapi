@@ -6,7 +6,6 @@
     "esModuleInterop": true,
     "lib": ["es2015"],
     "outDir": "./dist",
-    "rootDir": "./src",
     "strict": true,
     "allowJs": true,
     "strictNullChecks": true,
@@ -15,5 +14,6 @@
     "paths": {
       "@*": ["./*"]
     }
-  }
+  },
+  "exclude": ["node_modules", "dist"]
 }
