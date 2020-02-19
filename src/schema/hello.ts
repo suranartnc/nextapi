@@ -7,7 +7,7 @@ export const Query = objectType({
       type: "String",
       nullable: false,
       resolve: (root, args, ctx) => {
-        return 'Hello Worldx'
+        return 'Hello World'
       },
     });
   },
