@@ -1,14 +1,14 @@
-import { objectType, idArg, intArg, stringArg, core } from "nexus";
+import { objectType } from 'nexus'
 
 export const Query = objectType({
-  name: "Query",
+  name: 'Query',
   definition(t) {
-    t.field("hello", {
-      type: "String",
+    t.field('hello', {
+      type: 'String',
       nullable: false,
       resolve: (root, args, ctx) => {
         return 'Hello World'
       },
-    });
+    })
   },
-});
+})
