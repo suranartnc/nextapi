@@ -2,7 +2,7 @@ import path from 'path'
 import express from 'express'
 import { ApolloServer } from 'apollo-server-express'
 
-import { makeSchema, connectionPlugin } from 'nexus'
+import { makeSchema, connectionPlugin, nullabilityGuardPlugin } from 'nexus'
 
 import * as allTypes from './schema'
 
@@ -20,6 +20,16 @@ const schema = makeSchema({
     connectionPlugin({
       encodeCursor: fn,
       decodeCursor: fn,
+    }),
+    nullabilityGuardPlugin({
+      shouldGuard: true,
+      fallbackValues: {
+        ID: ({ info }): string => `${info.parentType.name}:N/A`,
+        String: (): string => '',
+        Int: (): number => 0,
+        Float: (): number => 0,
+        Boolean: (): boolean => false,
+      },
     }),
   ],
 })
