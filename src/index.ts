@@ -2,9 +2,13 @@ import path from 'path'
 import express from 'express'
 import { ApolloServer } from 'apollo-server-express'
 
-import { makeSchema } from 'nexus'
+import { makeSchema, connectionPlugin } from 'nexus'
 
 import * as allTypes from './schema'
+
+const DEBUGGING_CURSOR = false
+
+const fn = DEBUGGING_CURSOR ? (i: string): string => i : undefined
 
 const schema = makeSchema({
   types: allTypes,
@@ -12,6 +16,12 @@ const schema = makeSchema({
     schema: path.join(__dirname, 'schema.graphql'),
     typegen: path.join(__dirname, 'generated', 'typeDefs.ts'),
   },
+  plugins: [
+    connectionPlugin({
+      encodeCursor: fn,
+      decodeCursor: fn,
+    }),
+  ],
 })
 
 const server = new ApolloServer({ schema })

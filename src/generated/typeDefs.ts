@@ -4,9 +4,16 @@
  */
 
 
+import { core, connectionPluginCore } from "nexus"
 
-
-
+declare global {
+  interface NexusGenCustomOutputMethods<TypeName extends string> {
+    connectionField<FieldName extends string>(
+            fieldName: FieldName, 
+            config: connectionPluginCore.ConnectionFieldConfig<TypeName, FieldName> 
+          ): void
+  }
+}
 
 
 declare global {
@@ -26,7 +33,21 @@ export interface NexusGenRootTypes {
     id: string; // ID!
     username: string; // String!
   }
+  AccountConnection: { // root type
+    edges?: Array<NexusGenRootTypes['AccountEdge'] | null> | null; // [AccountEdge]
+    pageInfo: NexusGenRootTypes['PageInfo']; // PageInfo!
+  }
+  AccountEdge: { // root type
+    cursor: string; // String!
+    node: NexusGenRootTypes['Account']; // Account!
+  }
   Mutation: {};
+  PageInfo: { // root type
+    endCursor?: string | null; // String
+    hasNextPage: boolean; // Boolean!
+    hasPreviousPage: boolean; // Boolean!
+    startCursor?: string | null; // String
+  }
   Query: {};
   Node: NexusGenRootTypes['Account'];
   String: string;
@@ -43,11 +64,27 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
 export interface NexusGenFieldTypes {
   Account: { // field return type
     email: string; // String!
+    friends: NexusGenRootTypes['Account'][]; // [Account!]!
+    friendsConnection: NexusGenRootTypes['AccountConnection']; // AccountConnection!
     id: string; // ID!
     username: string; // String!
   }
+  AccountConnection: { // field return type
+    edges: Array<NexusGenRootTypes['AccountEdge'] | null> | null; // [AccountEdge]
+    pageInfo: NexusGenRootTypes['PageInfo']; // PageInfo!
+  }
+  AccountEdge: { // field return type
+    cursor: string; // String!
+    node: NexusGenRootTypes['Account']; // Account!
+  }
   Mutation: { // field return type
     createUser: NexusGenRootTypes['Account']; // Account!
+  }
+  PageInfo: { // field return type
+    endCursor: string | null; // String
+    hasNextPage: boolean; // Boolean!
+    hasPreviousPage: boolean; // Boolean!
+    startCursor: string | null; // String
   }
   Query: { // field return type
     account: NexusGenRootTypes['Account']; // Account!
@@ -58,6 +95,12 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenArgTypes {
+  Account: {
+    friendsConnection: { // args
+      after?: string | null; // String
+      first: number; // Int!
+    }
+  }
   Mutation: {
     createUser: { // args
       email?: string | null; // String
@@ -78,7 +121,7 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Account" | "Mutation" | "Query";
+export type NexusGenObjectNames = "Account" | "AccountConnection" | "AccountEdge" | "Mutation" | "PageInfo" | "Query";
 
 export type NexusGenInputNames = never;
 
@@ -116,6 +159,7 @@ declare global {
   interface NexusGenPluginTypeConfig<TypeName extends string> {
   }
   interface NexusGenPluginFieldConfig<TypeName extends string, FieldName extends string> {
+    
   }
   interface NexusGenPluginSchemaConfig {
   }
