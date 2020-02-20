@@ -10,6 +10,10 @@ type Account implements Node {
   username: String!
 }
 
+type Mutation {
+  createUser(email: String, name: String, username: String): Account!
+}
+
 interface Node {
   """Unique identifier for the resource"""
   id: ID!
@@ -17,8 +21,6 @@ interface Node {
 
 type Query {
   account(name: String, status: StatusEnum): Account!
-  hello: String!
-  ping: String!
 }
 
 enum StatusEnum {

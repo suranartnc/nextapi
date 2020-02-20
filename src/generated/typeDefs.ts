@@ -26,6 +26,7 @@ export interface NexusGenRootTypes {
     id: string; // ID!
     username: string; // String!
   }
+  Mutation: {};
   Query: {};
   Node: NexusGenRootTypes['Account'];
   String: string;
@@ -45,10 +46,11 @@ export interface NexusGenFieldTypes {
     id: string; // ID!
     username: string; // String!
   }
+  Mutation: { // field return type
+    createUser: NexusGenRootTypes['Account']; // Account!
+  }
   Query: { // field return type
     account: NexusGenRootTypes['Account']; // Account!
-    hello: string; // String!
-    ping: string; // String!
   }
   Node: { // field return type
     id: string; // ID!
@@ -56,6 +58,13 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenArgTypes {
+  Mutation: {
+    createUser: { // args
+      email?: string | null; // String
+      name?: string | null; // String
+      username?: string | null; // String
+    }
+  }
   Query: {
     account: { // args
       name?: string | null; // String
@@ -70,7 +79,7 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Account" | "Query";
+export type NexusGenObjectNames = "Account" | "Mutation" | "Query";
 
 export type NexusGenInputNames = never;
 

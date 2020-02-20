@@ -1,5 +1,6 @@
-import { objectType, queryField, stringArg, arg } from 'nexus'
+import { objectType, queryField, mutationField, stringArg, arg } from 'nexus'
 import { Node, StatusEnum } from '@schema/_common'
+import { uniqueId } from 'lodash'
 
 export const Account = objectType({
   name: 'Account',
@@ -21,6 +22,23 @@ export const AccountQueryField = queryField('account', {
       id: 'adsf-dsfds-fdfg-dfg-fdg',
       username: 'Suranart',
       email: 'abc@gmail.com',
+    }
+  },
+})
+
+export const createUser = mutationField('createUser', {
+  type: Account,
+  args: {
+    name: stringArg(),
+    username: stringArg(),
+    email: stringArg(),
+  },
+  resolve(root, args, ctx) {
+    const { username, email } = args
+    return {
+      id: uniqueId(),
+      username,
+      email,
     }
   },
 })
