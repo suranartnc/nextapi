@@ -1,4 +1,4 @@
-import { objectType, extendType, stringArg, arg } from 'nexus'
+import { objectType, queryField, stringArg, arg } from 'nexus'
 import { Node, StatusEnum } from '@schema/_common'
 
 export const Account = objectType({
@@ -10,22 +10,17 @@ export const Account = objectType({
   },
 })
 
-export const AccountField = extendType({
-  type: 'Query',
-  definition(t) {
-    t.field('account', {
-      type: Account,
-      args: {
-        name: stringArg(),
-        status: arg({ type: StatusEnum }),
-      },
-      resolve: (root, args, ctx) => {
-        return {
-          id: 'adsf-dsfds-fdfg-dfg-fdg',
-          username: 'Suranart',
-          email: 'abc@gmail.com',
-        }
-      },
-    })
+export const AccountQueryField = queryField('account', {
+  type: Account,
+  args: {
+    name: stringArg(),
+    status: arg({ type: StatusEnum }),
+  },
+  resolve: (root, args, ctx) => {
+    return {
+      id: 'adsf-dsfds-fdfg-dfg-fdg',
+      username: 'Suranart',
+      email: 'abc@gmail.com',
+    }
   },
 })
