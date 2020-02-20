@@ -10,8 +10,17 @@
     { "language": "typescriptreact", "autoFix": true }
   ],
   "files.exclude": {
+    ".vscode": true,
+    ".editorconfig": true,
+    ".eslintignore": true,
+    ".eslintrc": true,
+    ".prettierrc": true,
     "dist": true,
-    "node_modules": true
+    "node_modules": true,
+    "LICENSE": true,
+    "tsconfig-paths.js": true,
+    "tsconfig.build.json": true,
+    "yarn.lock": true,
   },
   "search.exclude": {
     ".vscode": true,
