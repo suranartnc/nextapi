@@ -11,7 +11,7 @@ type Account implements Node {
 }
 
 type Mutation {
-  createUser(email: String, name: String, username: String): Account!
+  createUser(email: String, username: String): Account!
 }
 
 interface Node {

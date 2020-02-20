@@ -29,16 +29,14 @@ export const AccountQueryField = queryField('account', {
 export const createUser = mutationField('createUser', {
   type: Account,
   args: {
-    name: stringArg(),
     username: stringArg(),
     email: stringArg(),
   },
   resolve(root, args, ctx) {
-    const { username, email } = args
     return {
-      id: uniqueId(),
-      username,
-      email,
+      id: 'adsf-dsfds-fdfg-dfg-fdg',
+      username: 'Suranart',
+      email: 'abc@gmail.com',
     }
   },
 })

@@ -61,7 +61,6 @@ export interface NexusGenArgTypes {
   Mutation: {
     createUser: { // args
       email?: string | null; // String
-      name?: string | null; // String
       username?: string | null; // String
     }
   }
