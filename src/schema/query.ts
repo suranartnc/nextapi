@@ -1,8 +1,9 @@
-import { objectType, interfaceType, enumType, stringArg, arg } from 'nexus'
+import { queryType, stringArg, arg } from 'nexus'
+import { StatusEnum } from './_common'
+
 import { greet } from '@utils'
 
-export const Query = objectType({
-  name: 'Query',
+export const Query = queryType({
   definition(t) {
     t.string('ping', () => 'pong') // Inline Resolver Function (Only Built-in scalar)
     t.field('hello', {
@@ -17,7 +18,7 @@ export const Query = objectType({
       type: 'Account',
       args: {
         name: stringArg(),
-        status: arg({ type: 'StatusEnum' }),
+        status: arg({ type: StatusEnum }),
       },
       resolve: (root, args, ctx) => {
         return {
@@ -28,26 +29,4 @@ export const Query = objectType({
       },
     })
   },
-})
-
-export const Node = interfaceType({
-  name: 'Node',
-  definition(t) {
-    t.id('id', { description: 'Unique identifier for the resource' })
-    t.resolveType(() => null)
-  },
-})
-
-export const Account = objectType({
-  name: 'Account',
-  definition(t) {
-    t.implements(Node) // or t.implements("Node")
-    t.string('username')
-    t.string('email')
-  },
-})
-
-export const StatusEnum = enumType({
-  name: 'StatusEnum',
-  members: ['ACTIVE', 'DISABLED'],
 })
