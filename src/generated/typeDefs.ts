@@ -17,10 +17,17 @@ export interface NexusGenInputs {
 }
 
 export interface NexusGenEnums {
+  StatusEnum: "ACTIVE" | "DISABLED"
 }
 
 export interface NexusGenRootTypes {
+  Account: { // root type
+    email: string; // String!
+    id: string; // ID!
+    username: string; // String!
+  }
   Query: {};
+  Node: NexusGenRootTypes['Account'];
   String: string;
   Int: number;
   Float: number;
@@ -29,29 +36,47 @@ export interface NexusGenRootTypes {
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
+  StatusEnum: NexusGenEnums['StatusEnum'];
 }
 
 export interface NexusGenFieldTypes {
+  Account: { // field return type
+    email: string; // String!
+    id: string; // ID!
+    username: string; // String!
+  }
   Query: { // field return type
+    account: NexusGenRootTypes['Account']; // Account!
     hello: string; // String!
+    ping: string; // String!
+  }
+  Node: { // field return type
+    id: string; // ID!
   }
 }
 
 export interface NexusGenArgTypes {
+  Query: {
+    account: { // args
+      name?: string | null; // String
+      status?: NexusGenEnums['StatusEnum'] | null; // StatusEnum
+    }
+  }
 }
 
 export interface NexusGenAbstractResolveReturnTypes {
+  Node: "Account"
 }
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Query";
+export type NexusGenObjectNames = "Account" | "Query";
 
 export type NexusGenInputNames = never;
 
-export type NexusGenEnumNames = never;
+export type NexusGenEnumNames = "StatusEnum";
 
-export type NexusGenInterfaceNames = never;
+export type NexusGenInterfaceNames = "Node";
 
 export type NexusGenScalarNames = "Boolean" | "Float" | "ID" | "Int" | "String";
 
