@@ -18,6 +18,8 @@
     "dist": true,
     "node_modules": true,
     "LICENSE": true,
+    "src/generated": true,
+    "src/schema.graphql": true,
     "tsconfig-paths.js": true,
     "tsconfig.build.json": true,
     "yarn.lock": true,
