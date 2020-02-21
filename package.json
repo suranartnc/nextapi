@@ -4,9 +4,9 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "ts-node-dev -r tsconfig-paths/register --no-notify --transpileOnly --respawn src/index.ts",
+    "dev": "ts-node-dev -r tsconfig-paths/register --no-notify --transpileOnly --respawn src/server/index.ts",
     "build": "rimraf dist && tsc -p tsconfig.build.json",
-    "start": "node -r ./tsconfig-paths.js dist/src/index.js"
+    "start": "node -r ./tsconfig-paths.js dist/src/server/index.js"
   },
   "repository": {
     "type": "git",

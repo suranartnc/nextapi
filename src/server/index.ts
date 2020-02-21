@@ -17,7 +17,7 @@ import {
 
 import { separateOperations } from 'graphql'
 
-import * as allTypes from './schema'
+import * as allTypes from '../schema'
 
 const DEBUGGING_CURSOR = false
 
@@ -41,7 +41,6 @@ const schema = makeSchema({
         ID: ({ info }): string => `${info.parentType.name}:N/A`,
         String: (): string => '',
         Int: (): number => 0,
-        Float: (): number => 0,
         Boolean: (): boolean => false,
       },
     }),
