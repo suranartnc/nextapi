@@ -3,12 +3,16 @@ import express from 'express'
 import { ApolloServer } from 'apollo-server-express'
 import { makeSchema } from 'nexus'
 
-import movieModel from '@modules/movie/data/model'
+import config from '@config'
+import mongooseConnector from '@server/connectors/mongodb'
+
 import MovieService from '@modules/movie/data/service'
 
 import * as allTypes from '@modules/global/schema'
 import schemaPlugins from '@server/plugins/schema'
 import { getApolloServerPlugins } from '@server/plugins/apollo'
+
+const mongoose = mongooseConnector(config.mongoConnectionString)
 
 const schema = makeSchema({
   types: allTypes,
@@ -32,7 +36,7 @@ const server = new ApolloServer({
   },
   dataSources: () => {
     return {
-      movieService: new MovieService(movieModel),
+      movieService: new MovieService(mongoose.model('Movie')),
     }
   },
   plugins: getApolloServerPlugins(schema),
