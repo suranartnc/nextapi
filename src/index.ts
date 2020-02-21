@@ -2,7 +2,20 @@ import path from 'path'
 import express from 'express'
 import { ApolloServer } from 'apollo-server-express'
 
-import { makeSchema, connectionPlugin, nullabilityGuardPlugin } from 'nexus'
+import {
+  makeSchema,
+  connectionPlugin,
+  nullabilityGuardPlugin,
+  queryComplexityPlugin,
+} from 'nexus'
+
+import {
+  getComplexity,
+  simpleEstimator,
+  fieldExtensionsEstimator,
+} from 'graphql-query-complexity'
+
+import { separateOperations } from 'graphql'
 
 import * as allTypes from './schema'
 
@@ -17,6 +30,7 @@ const schema = makeSchema({
     typegen: path.join(__dirname, 'generated', 'typeDefs.ts'),
   },
   plugins: [
+    queryComplexityPlugin(),
     connectionPlugin({
       encodeCursor: fn,
       decodeCursor: fn,
@@ -34,7 +48,37 @@ const schema = makeSchema({
   ],
 })
 
-const server = new ApolloServer({ schema })
+const server = new ApolloServer({
+  schema,
+  plugins: [
+    {
+      requestDidStart: () => ({
+        didResolveOperation({ request, document }): void {
+          const maxComplexity = 100
+
+          const complexity = getComplexity({
+            schema,
+            query: request.operationName
+              ? separateOperations(document)[request.operationName]
+              : document,
+            variables: request.variables,
+            estimators: [
+              fieldExtensionsEstimator(),
+              simpleEstimator({ defaultComplexity: 1 }),
+            ],
+          })
+
+          if (complexity >= maxComplexity) {
+            throw new Error(
+              `Sorry, too complicated query! (Complexity Score: ${complexity}/${maxComplexity})`,
+            )
+          }
+          console.log('Used query complexity points:', complexity)
+        },
+      }),
+    },
+  ],
+})
 
 const app = express()
 server.applyMiddleware({ app })

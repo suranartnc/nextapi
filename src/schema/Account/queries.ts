@@ -1,5 +1,6 @@
 import { objectType, queryField, stringArg, arg } from 'nexus'
 import { Node, StatusEnum } from '@schema/_common'
+import { getComplexityForConnection } from '@utils/schema'
 
 export const Account = objectType({
   name: 'Account',
@@ -27,6 +28,7 @@ export const Account = objectType({
     t.connectionField('friendsConnection', {
       type: Account,
       disableBackwardPagination: true,
+      complexity: getComplexityForConnection(),
       nodes() {
         return [
           {

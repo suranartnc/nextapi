@@ -4,6 +4,7 @@
  */
 
 
+import { QueryComplexity } from "nexus/dist/plugins/queryComplexityPlugin"
 import { core, connectionPluginCore } from "nexus"
 
 declare global {
@@ -159,6 +160,12 @@ declare global {
   interface NexusGenPluginTypeConfig<TypeName extends string> {
   }
   interface NexusGenPluginFieldConfig<TypeName extends string, FieldName extends string> {
+    /**
+     * The complexity for an individual field. Return a number
+     * or a function that returns a number to specify the
+     * complexity for this field.
+     */
+    complexity?: QueryComplexity<TypeName, FieldName>
     
     /**
      * The nullability guard can be helpful, but is also a pottentially expensive operation for lists.
