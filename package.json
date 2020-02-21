@@ -1,0 +1,43 @@
+{
+  "name": "nextapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "ts-node-dev -r tsconfig-paths/register --no-notify --transpileOnly --respawn src/server/index.ts",
+    "build": "rimraf dist && tsc -p tsconfig.build.json",
+    "start": "node -r ./tsconfig-paths.js dist/src/server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/suranartnc/nextapi.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/suranartnc/nextapi/issues"
+  },
+  "homepage": "https://github.com/suranartnc/nextapi#readme",
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.20.0",
+    "@typescript-eslint/parser": "^2.20.0",
+    "apollo-server-express": "^2.10.1",
+    "graphql-query-complexity": "^0.4.1",
+    "lodash": "^4.17.15",
+    "nexus": "^0.12.0-rc.13",
+    "tsconfig-paths": "^3.9.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "prettier": "^1.19.1",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "typescript": "^3.7.5"
+  }
+}
