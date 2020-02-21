@@ -3,22 +3,12 @@ import express from 'express'
 import { ApolloServer } from 'apollo-server-express'
 import { makeSchema } from 'nexus'
 
+import movieModel from '@models/movie'
 import MovieService from '@services/movie'
 
 import * as allTypes from '@schema'
-import schemaPlugins from './plugins/schema'
-import { getApolloServerPlugins } from './plugins/apollo'
-
-const movieModel = [
-  {
-    id: '1',
-    title: 'Joker',
-  },
-  {
-    id: '2',
-    title: 'Batman',
-  },
-]
+import schemaPlugins from '@server/plugins/schema'
+import { getApolloServerPlugins } from '@server/plugins/apollo'
 
 const schema = makeSchema({
   types: allTypes,
