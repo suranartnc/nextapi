@@ -1,2 +1,2 @@
 export * from './_common'
-export * from './account'
+export * from './movies'

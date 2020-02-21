@@ -29,28 +29,13 @@ export interface NexusGenEnums {
 }
 
 export interface NexusGenRootTypes {
-  Account: { // root type
-    email: string; // String!
+  Movie: { // root type
     id: string; // ID!
-    username: string; // String!
-  }
-  AccountConnection: { // root type
-    edges?: Array<NexusGenRootTypes['AccountEdge'] | null> | null; // [AccountEdge]
-    pageInfo: NexusGenRootTypes['PageInfo']; // PageInfo!
-  }
-  AccountEdge: { // root type
-    cursor: string; // String!
-    node: NexusGenRootTypes['Account']; // Account!
+    title: string; // String!
   }
   Mutation: {};
-  PageInfo: { // root type
-    endCursor?: string | null; // String
-    hasNextPage: boolean; // Boolean!
-    hasPreviousPage: boolean; // Boolean!
-    startCursor?: string | null; // String
-  }
   Query: {};
-  Node: NexusGenRootTypes['Account'];
+  Node: NexusGenRootTypes['Movie'];
   String: string;
   Int: number;
   Float: number;
@@ -63,32 +48,15 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
 }
 
 export interface NexusGenFieldTypes {
-  Account: { // field return type
-    email: string; // String!
-    friends: NexusGenRootTypes['Account'][]; // [Account!]!
-    friendsConnection: NexusGenRootTypes['AccountConnection']; // AccountConnection!
+  Movie: { // field return type
     id: string; // ID!
-    username: string; // String!
-  }
-  AccountConnection: { // field return type
-    edges: Array<NexusGenRootTypes['AccountEdge'] | null> | null; // [AccountEdge]
-    pageInfo: NexusGenRootTypes['PageInfo']; // PageInfo!
-  }
-  AccountEdge: { // field return type
-    cursor: string; // String!
-    node: NexusGenRootTypes['Account']; // Account!
+    title: string; // String!
   }
   Mutation: { // field return type
-    createUser: NexusGenRootTypes['Account']; // Account!
-  }
-  PageInfo: { // field return type
-    endCursor: string | null; // String
-    hasNextPage: boolean; // Boolean!
-    hasPreviousPage: boolean; // Boolean!
-    startCursor: string | null; // String
+    createMovie: NexusGenRootTypes['Movie']; // Movie!
   }
   Query: { // field return type
-    account: NexusGenRootTypes['Account']; // Account!
+    movie: NexusGenRootTypes['Movie']; // Movie!
   }
   Node: { // field return type
     id: string; // ID!
@@ -96,33 +64,26 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenArgTypes {
-  Account: {
-    friendsConnection: { // args
-      after?: string | null; // String
-      first: number; // Int!
-    }
-  }
   Mutation: {
-    createUser: { // args
+    createMovie: { // args
       email?: string | null; // String
       username?: string | null; // String
     }
   }
   Query: {
-    account: { // args
-      name?: string | null; // String
-      status?: NexusGenEnums['StatusEnum'] | null; // StatusEnum
+    movie: { // args
+      id?: string | null; // String
     }
   }
 }
 
 export interface NexusGenAbstractResolveReturnTypes {
-  Node: "Account"
+  Node: "Movie"
 }
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Account" | "AccountConnection" | "AccountEdge" | "Mutation" | "PageInfo" | "Query";
+export type NexusGenObjectNames = "Movie" | "Mutation" | "Query";
 
 export type NexusGenInputNames = never;
 
