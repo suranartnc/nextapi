@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2016",
     "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "lib": ["es2015"],
     "outDir": "./dist",
-    "strict": true,
+    "strict": false,
     "allowJs": true,
     "strictNullChecks": true,
     "skipLibCheck": true,

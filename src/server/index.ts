@@ -21,10 +21,21 @@ const schema = makeSchema({
 
 const server = new ApolloServer({
   schema,
+  context: ({ req }) => {
+    let user
+    if (req.user) {
+      user = req.user
+    }
+    return {
+      user,
+    }
+  },
+  dataSources: () => {
+    return {
+      movieService: new MovieService(movieModel),
+    }
+  },
   plugins: getApolloServerPlugins(schema),
-  dataSources: () => ({
-    movieService: new MovieService(movieModel),
-  }),
 })
 
 const app = express()
