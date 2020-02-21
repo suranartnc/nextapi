@@ -1,8 +1,8 @@
 import { mutationField, stringArg } from 'nexus'
-import { Account } from '@schema/Account/queries'
+// import { Account } from '@schema/Account/queries'
 
 export const createUser = mutationField('createUser', {
-  type: Account,
+  type: 'Account',
   args: {
     username: stringArg(),
     email: stringArg(),
