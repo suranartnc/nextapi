@@ -7,7 +7,7 @@
     "dev": "ts-node-dev -r tsconfig-paths/register --no-notify --transpileOnly --respawn src/server/index.ts",
     "build": "rimraf dist && tsc -p tsconfig.build.json",
     "start": "node -r ./tsconfig-paths.js dist/src/server/index.js",
-    "mongo:backup": "sh .mongo/backup.sh"
+    "mongodb:backup": "sh .mongo/backup.sh"
   },
   "repository": {
     "type": "git",
