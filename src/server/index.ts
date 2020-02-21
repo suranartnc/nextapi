@@ -26,8 +26,8 @@ const fn = DEBUGGING_CURSOR ? (i: string): string => i : undefined
 const schema = makeSchema({
   types: allTypes,
   outputs: {
-    schema: path.join(__dirname, 'schema.graphql'),
-    typegen: path.join(__dirname, 'generated', 'typeDefs.ts'),
+    schema: path.join(process.cwd(), 'src', 'schema.graphql'),
+    typegen: path.join(process.cwd(), 'src/generated', 'typeDefs.ts'),
   },
   plugins: [
     queryComplexityPlugin(),
