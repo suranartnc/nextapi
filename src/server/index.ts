@@ -3,10 +3,10 @@ import express from 'express'
 import { ApolloServer } from 'apollo-server-express'
 import { makeSchema } from 'nexus'
 
-import movieModel from '@models/movie'
-import MovieService from '@services/movie'
+import movieModel from '@modules/movie/data/model'
+import MovieService from '@modules/movie/data/service'
 
-import * as allTypes from '@schema'
+import * as allTypes from '@modules/global/schema'
 import schemaPlugins from '@server/plugins/schema'
 import { getApolloServerPlugins } from '@server/plugins/apollo'
 

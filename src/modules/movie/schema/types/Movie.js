@@ -1,5 +1,5 @@
 import { objectType } from 'nexus'
-import { Node } from '@schema/_common'
+import { Node } from '@modules/global/schema/_common'
 
 export const MovieType = objectType({
   name: 'Movie',
