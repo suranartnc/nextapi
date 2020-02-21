@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "lib": ["es2015"],
+    "outDir": "./dist",
+    "strict": false,
+    "allowJs": true,
+    "strictNullChecks": true,
+    "skipLibCheck": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@*": ["./*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}
