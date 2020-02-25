@@ -2,6 +2,13 @@
 ### Do not make changes to this file directly
 
 
+type Assignment {
+  grade: Int!
+  id: Int!
+  student_id: Int!
+  title: String!
+}
+
 type Movie implements Node {
   """Unique identifier for the resource"""
   id: ID!
@@ -19,7 +26,7 @@ interface Node {
 
 type Query {
   movie(id: String): Movie!
-  student(id: String): Student!
+  student(id: Int): Student!
 }
 
 enum StatusEnum {
@@ -27,10 +34,9 @@ enum StatusEnum {
   DISABLED
 }
 
-type Student implements Node {
+type Student {
+  assignments: [Assignment!]!
   fname: String!
-
-  """Unique identifier for the resource"""
-  id: ID!
+  id: Int!
   lname: String!
 }

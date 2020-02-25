@@ -29,6 +29,12 @@ export interface NexusGenEnums {
 }
 
 export interface NexusGenRootTypes {
+  Assignment: { // root type
+    grade: number; // Int!
+    id: number; // Int!
+    student_id: number; // Int!
+    title: string; // String!
+  }
   Movie: { // root type
     id: string; // ID!
     title: string; // String!
@@ -37,10 +43,10 @@ export interface NexusGenRootTypes {
   Query: {};
   Student: { // root type
     fname: string; // String!
-    id: string; // ID!
+    id: number; // Int!
     lname: string; // String!
   }
-  Node: NexusGenRootTypes['Movie'] | NexusGenRootTypes['Student'];
+  Node: NexusGenRootTypes['Movie'];
   String: string;
   Int: number;
   Float: number;
@@ -53,6 +59,12 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
 }
 
 export interface NexusGenFieldTypes {
+  Assignment: { // field return type
+    grade: number; // Int!
+    id: number; // Int!
+    student_id: number; // Int!
+    title: string; // String!
+  }
   Movie: { // field return type
     id: string; // ID!
     title: string; // String!
@@ -65,8 +77,9 @@ export interface NexusGenFieldTypes {
     student: NexusGenRootTypes['Student']; // Student!
   }
   Student: { // field return type
+    assignments: NexusGenRootTypes['Assignment'][]; // [Assignment!]!
     fname: string; // String!
-    id: string; // ID!
+    id: number; // Int!
     lname: string; // String!
   }
   Node: { // field return type
@@ -86,18 +99,18 @@ export interface NexusGenArgTypes {
       id?: string | null; // String
     }
     student: { // args
-      id?: string | null; // String
+      id?: number | null; // Int
     }
   }
 }
 
 export interface NexusGenAbstractResolveReturnTypes {
-  Node: "Movie" | "Student"
+  Node: "Movie"
 }
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Movie" | "Mutation" | "Query" | "Student";
+export type NexusGenObjectNames = "Assignment" | "Movie" | "Mutation" | "Query" | "Student";
 
 export type NexusGenInputNames = never;
 

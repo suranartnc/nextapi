@@ -11,4 +11,12 @@ export default class StudentService extends SQLDataSource {
       .first()
       .cache(MINUTE)
   }
+
+  getAssignments(studentId: string): object {
+    return this.knex
+      .select('*')
+      .from('assignments')
+      .where('student_id', studentId)
+      .cache(MINUTE)
+  }
 }
