@@ -35,7 +35,12 @@ export interface NexusGenRootTypes {
   }
   Mutation: {};
   Query: {};
-  Node: NexusGenRootTypes['Movie'];
+  Student: { // root type
+    fname: string; // String!
+    id: string; // ID!
+    lname: string; // String!
+  }
+  Node: NexusGenRootTypes['Movie'] | NexusGenRootTypes['Student'];
   String: string;
   Int: number;
   Float: number;
@@ -57,6 +62,12 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     movie: NexusGenRootTypes['Movie']; // Movie!
+    student: NexusGenRootTypes['Student']; // Student!
+  }
+  Student: { // field return type
+    fname: string; // String!
+    id: string; // ID!
+    lname: string; // String!
   }
   Node: { // field return type
     id: string; // ID!
@@ -74,16 +85,19 @@ export interface NexusGenArgTypes {
     movie: { // args
       id?: string | null; // String
     }
+    student: { // args
+      id?: string | null; // String
+    }
   }
 }
 
 export interface NexusGenAbstractResolveReturnTypes {
-  Node: "Movie"
+  Node: "Movie" | "Student"
 }
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Movie" | "Mutation" | "Query";
+export type NexusGenObjectNames = "Movie" | "Mutation" | "Query" | "Student";
 
 export type NexusGenInputNames = never;
 

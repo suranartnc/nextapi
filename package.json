@@ -24,10 +24,12 @@
     "@typescript-eslint/eslint-plugin": "^2.20.0",
     "@typescript-eslint/parser": "^2.20.0",
     "apollo-server-express": "^2.10.1",
+    "datasource-sql": "^1.1.1",
     "graphql-query-complexity": "^0.4.1",
     "lodash": "^4.17.15",
     "mongoose": "^5.9.1",
     "nexus": "^0.12.0-rc.13",
+    "pg": "^7.18.2",
     "tsconfig-paths": "^3.9.0"
   },
   "devDependencies": {

@@ -19,9 +19,18 @@ interface Node {
 
 type Query {
   movie(id: String): Movie!
+  student(id: String): Student!
 }
 
 enum StatusEnum {
   ACTIVE
   DISABLED
+}
+
+type Student implements Node {
+  fname: String!
+
+  """Unique identifier for the resource"""
+  id: ID!
+  lname: String!
 }

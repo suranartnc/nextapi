@@ -5,8 +5,10 @@ import { makeSchema } from 'nexus'
 
 import config from '@config'
 import mongooseConnector from '@server/connectors/mongodb'
+import postgresConnector from '@server/connectors/postgres'
 
 import MovieService from '@modules/movie/data/service'
+import StudentService from '@modules/student/data/service'
 
 import * as allTypes from '@modules/global/schema'
 import schemaPlugins from '@server/plugins/schema'
@@ -37,6 +39,7 @@ const server = new ApolloServer({
   dataSources: () => {
     return {
       movieService: new MovieService(mongoose.model('Movie')),
+      studentService: new StudentService(postgresConnector),
     }
   },
   plugins: getApolloServerPlugins(schema),
