@@ -11,7 +11,11 @@ export default class StudentService extends DataSource {
     return Student.query().findOne({ id })
   }
 
-  getAssignments(studentId: string): object {
+  getAssignments(studentId: string): any {
+    if (!studentId) {
+      return null
+    }
+
     return Assignment.query().where({ student_id: studentId })
   }
 
