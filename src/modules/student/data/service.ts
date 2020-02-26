@@ -1,22 +1,17 @@
-import { SQLDataSource } from 'datasource-sql'
+import { DataSource } from 'apollo-datasource'
+import Student from '@modules/student/data/model/Student'
+import Assignment from '@modules/student/data/model/Assignment'
 
-const MINUTE = 60
+export default class StudentService extends DataSource {
+  initialize({ context } = {}): void {
+    this.context = context
+  }
 
-export default class StudentService extends SQLDataSource {
   getStudent(id: string): object {
-    return this.knex
-      .select('*')
-      .from('students')
-      .where({ id })
-      .first()
-      .cache(MINUTE)
+    return Student.query().findOne({ id })
   }
 
   getAssignments(studentId: string): object {
-    return this.knex
-      .select('*')
-      .from('assignments')
-      .where('student_id', studentId)
-      .cache(MINUTE)
+    return Assignment.query().where({ student_id: studentId })
   }
 }

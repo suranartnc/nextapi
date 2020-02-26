@@ -1,4 +1,6 @@
-export default {
+import Knex from 'knex'
+
+export default Knex({
   client: 'pg',
   connection: {
     host: 'localhost',
@@ -6,4 +8,4 @@ export default {
     password: 'root',
     database: 'postgres',
   },
-}
+})
