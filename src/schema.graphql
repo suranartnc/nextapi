@@ -17,6 +17,7 @@ type Movie implements Node {
 
 type Mutation {
   createMovie(email: String, username: String): Movie!
+  deleteStudent(id: Int): Student!
 }
 
 interface Node {

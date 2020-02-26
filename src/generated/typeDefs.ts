@@ -71,6 +71,7 @@ export interface NexusGenFieldTypes {
   }
   Mutation: { // field return type
     createMovie: NexusGenRootTypes['Movie']; // Movie!
+    deleteStudent: NexusGenRootTypes['Student']; // Student!
   }
   Query: { // field return type
     movie: NexusGenRootTypes['Movie']; // Movie!
@@ -92,6 +93,9 @@ export interface NexusGenArgTypes {
     createMovie: { // args
       email?: string | null; // String
       username?: string | null; // String
+    }
+    deleteStudent: { // args
+      id?: number | null; // Int
     }
   }
   Query: {

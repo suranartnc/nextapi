@@ -14,4 +14,16 @@ export default class StudentService extends DataSource {
   getAssignments(studentId: string): object {
     return Assignment.query().where({ student_id: studentId })
   }
+
+  async deleteStudent(id: string): object {
+    await Student.relatedQuery('assignments')
+      .for(id)
+      .delete()
+
+    await Student.query().deleteById(id)
+
+    return {
+      id,
+    }
+  }
 }
