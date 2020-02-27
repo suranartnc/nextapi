@@ -8,6 +8,9 @@ export const StudentType = objectType({
     t.string('lname')
     t.list.field('assignments', {
       type: 'Assignment',
+      authorize: (root, args, ctx) => {
+        return ctx.user !== null
+      },
       resolve: (root, args, { dataSources: { studentService } }) => {
         return studentService.getAssignments(root.id)
       },

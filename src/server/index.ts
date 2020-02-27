@@ -27,7 +27,8 @@ const schema = makeSchema({
 const server = new ApolloServer({
   schema,
   context: ({ req }) => {
-    let user
+    let user = null
+
     if (req.user) {
       user = req.user
     }
