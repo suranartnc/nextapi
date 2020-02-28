@@ -10,8 +10,10 @@ import MovieService from '@modules/movie/data/service'
 import StudentService from '@modules/student/data/service'
 
 import * as allTypes from '@modules/global/schema'
+
 import schemaPlugins from '@server/plugins/schema'
 import { getApolloServerPlugins } from '@server/plugins/apollo'
+import { applyMiddleware } from '@server/plugins/middlewares'
 
 const mongoose = mongooseConnector(config.mongoConnectionString)
 
@@ -25,7 +27,7 @@ const schema = makeSchema({
 })
 
 const server = new ApolloServer({
-  schema,
+  schema: applyMiddleware(schema),
   context: ({ req }) => {
     let user = null
 

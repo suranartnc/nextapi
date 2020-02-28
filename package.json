@@ -25,6 +25,7 @@
     "@typescript-eslint/parser": "^2.20.0",
     "apollo-server-express": "^2.10.1",
     "datasource-sql": "^1.1.1",
+    "graphql-middleware": "^4.0.2",
     "graphql-query-complexity": "^0.4.1",
     "lodash": "^4.17.15",
     "mongoose": "^5.9.1",
