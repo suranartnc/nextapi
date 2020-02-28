@@ -11,7 +11,7 @@ import StudentService from '@modules/student/data/service'
 
 import * as allTypes from '@modules/global/schema'
 
-import schemaPlugins from '@server/plugins/schema'
+import nexusPlugins from '@server/plugins/nexus'
 import { getApolloServerPlugins } from '@server/plugins/apollo'
 import { applyMiddleware } from '@server/plugins/middlewares'
 
@@ -23,7 +23,7 @@ const schema = makeSchema({
     schema: path.join(process.cwd(), 'src', 'schema.graphql'),
     typegen: path.join(process.cwd(), 'src/generated', 'typeDefs.ts'),
   },
-  plugins: schemaPlugins,
+  plugins: nexusPlugins,
 })
 
 const server = new ApolloServer({

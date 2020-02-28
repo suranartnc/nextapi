@@ -5,6 +5,8 @@ import {
   fieldAuthorizePlugin,
 } from 'nexus'
 
+import LogMutationTime from './LogMutationTime'
+
 const DEBUGGING_CURSOR = false
 const fn = DEBUGGING_CURSOR ? (i: string): string => i : undefined
 
@@ -24,4 +26,5 @@ export default [
       Boolean: (): boolean => false,
     },
   }),
+  LogMutationTime,
 ]
