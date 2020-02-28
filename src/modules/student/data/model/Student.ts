@@ -9,6 +9,18 @@ export default class Student extends Model {
     return 'students'
   }
 
+  static get jsonSchema() {
+    return {
+      type: 'object',
+      required: ['fname', 'lname'],
+      properties: {
+        id: { type: 'integer' },
+        fname: { type: 'string', minLength: 1, maxLength: 255 },
+        lname: { type: 'string', minLength: 1, maxLength: 255 },
+      },
+    }
+  }
+
   static get relationMappings(): object {
     return {
       assignments: {

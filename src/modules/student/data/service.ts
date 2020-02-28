@@ -19,6 +19,17 @@ export default class StudentService extends DataSource {
     return Assignment.query().where({ student_id: studentId })
   }
 
+  async createStudent(data) {
+    const { fname, lname } = data
+
+    const response = await Student.query().insert({
+      fname,
+      lname,
+    })
+
+    return response
+  }
+
   async deleteStudent(id: string): object {
     await Student.relatedQuery('assignments')
       .for(id)

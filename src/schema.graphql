@@ -9,6 +9,11 @@ type Assignment {
   title: String!
 }
 
+input createStudentInput {
+  fname: String!
+  lname: String!
+}
+
 type Movie implements Node {
   """Unique identifier for the resource"""
   id: ID!
@@ -17,6 +22,7 @@ type Movie implements Node {
 
 type Mutation {
   createMovie(email: String, username: String): Movie!
+  createStudent(input: createStudentInput): Student!
   deleteStudent(id: Int): Student!
 }
 

@@ -23,6 +23,10 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  createStudentInput: { // input type
+    fname: string; // String!
+    lname: string; // String!
+  }
 }
 
 export interface NexusGenEnums {
@@ -56,6 +60,7 @@ export interface NexusGenRootTypes {
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
+  createStudentInput: NexusGenInputs['createStudentInput'];
   StatusEnum: NexusGenEnums['StatusEnum'];
 }
 
@@ -72,6 +77,7 @@ export interface NexusGenFieldTypes {
   }
   Mutation: { // field return type
     createMovie: NexusGenRootTypes['Movie']; // Movie!
+    createStudent: NexusGenRootTypes['Student']; // Student!
     deleteStudent: NexusGenRootTypes['Student']; // Student!
   }
   Query: { // field return type
@@ -95,6 +101,9 @@ export interface NexusGenArgTypes {
       email?: string | null; // String
       username?: string | null; // String
     }
+    createStudent: { // args
+      input?: NexusGenInputs['createStudentInput'] | null; // createStudentInput
+    }
     deleteStudent: { // args
       id?: number | null; // Int
     }
@@ -117,7 +126,7 @@ export interface NexusGenInheritedFields {}
 
 export type NexusGenObjectNames = "Assignment" | "Movie" | "Mutation" | "Query" | "Student";
 
-export type NexusGenInputNames = never;
+export type NexusGenInputNames = "createStudentInput";
 
 export type NexusGenEnumNames = "StatusEnum";
 
