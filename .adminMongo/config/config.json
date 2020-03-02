@@ -1,0 +1,8 @@
+{
+  "connections": {
+    "nextapi": {
+      "connection_string": "mongodb://mongo",
+      "connection_options": {}
+    }
+  }
+}

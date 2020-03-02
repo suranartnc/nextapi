@@ -2,6 +2,18 @@
 ### Do not make changes to this file directly
 
 
+type Assignment {
+  grade: Int!
+  id: Int!
+  student_id: Int!
+  title: String!
+}
+
+input createStudentInput {
+  fname: String!
+  lname: String!
+}
+
 type Movie implements Node {
   """Unique identifier for the resource"""
   id: ID!
@@ -10,6 +22,8 @@ type Movie implements Node {
 
 type Mutation {
   createMovie(email: String, username: String): Movie!
+  createStudent(input: createStudentInput): Student!
+  deleteStudent(id: Int): Student!
 }
 
 interface Node {
@@ -19,9 +33,17 @@ interface Node {
 
 type Query {
   movie(id: String): Movie!
+  student(id: Int): Student!
 }
 
 enum StatusEnum {
   ACTIVE
   DISABLED
+}
+
+type Student {
+  assignments: [Assignment!]!
+  fname: String!
+  id: Int!
+  lname: String!
 }

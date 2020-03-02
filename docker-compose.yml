@@ -1,0 +1,50 @@
+version: "2"
+services:
+  mongo:
+    container_name: nextapi_mongo
+    build:
+      context: ./.mongo
+    ports:
+      - "27017:27017"
+
+  adminMongo:
+    container_name: nextapi_adminMongo
+    image: adicom/admin-mongo
+    depends_on:
+      - mongo
+    ports:
+      - "1234:1234"
+    volumes:
+      - ./.adminMongo/config:/app/config
+  
+  postgres:
+    container_name: nextapi_postgres
+    build:
+      context: ./.postgresql
+    networks:
+      - postgres_net
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    container_name: nextapi_pgadmin
+    build:
+      context: ./.pgadmin
+    depends_on:
+      - postgres
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=pgadmin4@pgadmin.org
+      - PGADMIN_DEFAULT_PASSWORD=root
+      - PGADMIN_PORT=5050
+    ports:
+      - "5050:80"
+    networks:
+      - postgres_net
+    restart: unless-stopped
+
+networks:
+  postgres_net:
+    driver: bridge

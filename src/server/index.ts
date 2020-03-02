@@ -3,12 +3,19 @@ import express from 'express'
 import { ApolloServer } from 'apollo-server-express'
 import { makeSchema } from 'nexus'
 
-import movieModel from '@modules/movie/data/model'
+import config from '@config'
+import mongooseConnector from '@server/connectors/mongodb'
+
 import MovieService from '@modules/movie/data/service'
+import StudentService from '@modules/student/data/service'
 
 import * as allTypes from '@modules/global/schema'
-import schemaPlugins from '@server/plugins/schema'
+
+import nexusPlugins from '@server/plugins/nexus'
 import { getApolloServerPlugins } from '@server/plugins/apollo'
+import { applyMiddleware } from '@server/plugins/middlewares'
+
+const mongoose = mongooseConnector(config.mongoConnectionString)
 
 const schema = makeSchema({
   types: allTypes,
@@ -16,13 +23,14 @@ const schema = makeSchema({
     schema: path.join(process.cwd(), 'src', 'schema.graphql'),
     typegen: path.join(process.cwd(), 'src/generated', 'typeDefs.ts'),
   },
-  plugins: schemaPlugins,
+  plugins: nexusPlugins,
 })
 
 const server = new ApolloServer({
-  schema,
+  schema: applyMiddleware(schema),
   context: ({ req }) => {
-    let user
+    let user = null
+
     if (req.user) {
       user = req.user
     }
@@ -32,7 +40,8 @@ const server = new ApolloServer({
   },
   dataSources: () => {
     return {
-      movieService: new MovieService(movieModel),
+      movieService: new MovieService(mongoose.model('Movie')),
+      studentService: new StudentService(),
     }
   },
   plugins: getApolloServerPlugins(schema),
