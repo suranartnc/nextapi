@@ -11,6 +11,6 @@ export default class MovieService extends DataSource {
   }
 
   getMovie(id) {
-    return this.model.find(movie => movie.id === id)
+    return this.model.findOne({ _id: id })
   }
 }

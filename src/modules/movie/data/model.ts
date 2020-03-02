@@ -1,10 +1,10 @@
-export default [
+import mongoose from 'mongoose'
+
+const MovieSchema = new mongoose.Schema(
   {
-    id: '1',
-    title: 'Joker',
+    title: String,
   },
-  {
-    id: '2',
-    title: 'Batman',
-  },
-]
+  { timestamps: true },
+)
+
+export default mongoose.model('Movie', MovieSchema)

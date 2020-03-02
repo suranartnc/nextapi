@@ -4,8 +4,9 @@
  */
 
 
-import { QueryComplexity } from "nexus/dist/plugins/queryComplexityPlugin"
 import { core, connectionPluginCore } from "nexus"
+import { QueryComplexity } from "nexus/dist/plugins/queryComplexityPlugin"
+import { FieldAuthorizeResolver } from "nexus/dist/plugins/fieldAuthorizePlugin"
 
 declare global {
   interface NexusGenCustomOutputMethods<TypeName extends string> {
@@ -22,6 +23,10 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  createStudentInput: { // input type
+    fname: string; // String!
+    lname: string; // String!
+  }
 }
 
 export interface NexusGenEnums {
@@ -29,12 +34,23 @@ export interface NexusGenEnums {
 }
 
 export interface NexusGenRootTypes {
+  Assignment: { // root type
+    grade: number; // Int!
+    id: number; // Int!
+    student_id: number; // Int!
+    title: string; // String!
+  }
   Movie: { // root type
     id: string; // ID!
     title: string; // String!
   }
   Mutation: {};
   Query: {};
+  Student: { // root type
+    fname: string; // String!
+    id: number; // Int!
+    lname: string; // String!
+  }
   Node: NexusGenRootTypes['Movie'];
   String: string;
   Int: number;
@@ -44,19 +60,35 @@ export interface NexusGenRootTypes {
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
+  createStudentInput: NexusGenInputs['createStudentInput'];
   StatusEnum: NexusGenEnums['StatusEnum'];
 }
 
 export interface NexusGenFieldTypes {
+  Assignment: { // field return type
+    grade: number; // Int!
+    id: number; // Int!
+    student_id: number; // Int!
+    title: string; // String!
+  }
   Movie: { // field return type
     id: string; // ID!
     title: string; // String!
   }
   Mutation: { // field return type
     createMovie: NexusGenRootTypes['Movie']; // Movie!
+    createStudent: NexusGenRootTypes['Student']; // Student!
+    deleteStudent: NexusGenRootTypes['Student']; // Student!
   }
   Query: { // field return type
     movie: NexusGenRootTypes['Movie']; // Movie!
+    student: NexusGenRootTypes['Student']; // Student!
+  }
+  Student: { // field return type
+    assignments: NexusGenRootTypes['Assignment'][]; // [Assignment!]!
+    fname: string; // String!
+    id: number; // Int!
+    lname: string; // String!
   }
   Node: { // field return type
     id: string; // ID!
@@ -69,10 +101,19 @@ export interface NexusGenArgTypes {
       email?: string | null; // String
       username?: string | null; // String
     }
+    createStudent: { // args
+      input?: NexusGenInputs['createStudentInput'] | null; // createStudentInput
+    }
+    deleteStudent: { // args
+      id?: number | null; // Int
+    }
   }
   Query: {
     movie: { // args
       id?: string | null; // String
+    }
+    student: { // args
+      id?: number | null; // Int
     }
   }
 }
@@ -83,9 +124,9 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Movie" | "Mutation" | "Query";
+export type NexusGenObjectNames = "Assignment" | "Movie" | "Mutation" | "Query" | "Student";
 
-export type NexusGenInputNames = never;
+export type NexusGenInputNames = "createStudentInput";
 
 export type NexusGenEnumNames = "StatusEnum";
 
@@ -121,13 +162,22 @@ declare global {
   interface NexusGenPluginTypeConfig<TypeName extends string> {
   }
   interface NexusGenPluginFieldConfig<TypeName extends string, FieldName extends string> {
+    
     /**
      * The complexity for an individual field. Return a number
      * or a function that returns a number to specify the
      * complexity for this field.
      */
     complexity?: QueryComplexity<TypeName, FieldName>
-    
+    /**
+     * Authorization for an individual field. Returning "true"
+     * or "Promise<true>" means the field can be accessed.
+     * Returning "false" or "Promise<false>" will respond
+     * with a "Not Authorized" error for the field.
+     * Returning or throwing an error will also prevent the
+     * resolver from executing.
+     */
+    authorize?: FieldAuthorizeResolver<TypeName, FieldName>
     /**
      * The nullability guard can be helpful, but is also a pottentially expensive operation for lists.
      * We need to iterate the entire list to check for null items to guard against. Set this to true
